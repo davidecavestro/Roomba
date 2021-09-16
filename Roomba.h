@@ -69,6 +69,7 @@
 #include <Arduino.h>
 #endif
 
+#include <SoftwareSerial.h>
 /// Masks for LEDs in leds()
 #define ROOMBA_MASK_LED_NONE    0
 #define ROOMBA_MASK_LED_PLAY    0x2
@@ -131,7 +132,7 @@
 
 // You may be able to set this so you can use Roomba with NewSoftSerial
 // instead of HardwareSerial
-//#define HardwareSerial NewSoftSerial
+///#define HardwareSerial SoftSwareerial
 
 /////////////////////////////////////////////////////////////////////
 /// \class Roomba Roomba.h <Roomba.h>
@@ -386,13 +387,7 @@ public:
     /// \param[in] serial POinter to the HardwareSerial port to use to communicate with the Roomba.
     /// Defaults to &Serial
     /// \param[in] baud the baud rate to use on the serial port. Defaults to 57600, the default for the Roomba.
-    #ifdef HAVE_HWSERIAL0
-      Roomba(HardwareSerial* serial = &Serial, Baud baud = Baud57600);
-    #elif defined HAVE_HWSERIAL1
-      Roomba(HardwareSerial* serial = &Serial1, Baud baud = Baud57600);
-    #else
-      Roomba(Serial_* serial = &serial, Baud baud = Baud57600);
-    #endif
+    Roomba(SoftwareSerial* serial = new SoftwareSerial(5,4), Baud baud = Baud57600);
 
     /// Resets the Roomba.
     /// It will emit its startup message
@@ -640,7 +635,7 @@ private:
     uint32_t        _baud;
 
     /// The serial port to use to talk to the Roomba
-    HardwareSerial* _serial;
+    SoftwareSerial* _serial;
 
     /// Variables for keeping track of polling of data streams
     uint8_t         _pollState; /// Current state of polling, one of Roomba::PollState
