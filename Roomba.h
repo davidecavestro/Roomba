@@ -384,10 +384,9 @@ public:
     } Sensor;
 
     /// Constructor. You can have multiple simultaneous Roomba if that makes sense.
-    /// \param[in] serial POinter to the HardwareSerial port to use to communicate with the Roomba.
-    /// Defaults to &Serial
-    /// \param[in] baud the baud rate to use on the serial port. Defaults to 57600, the default for the Roomba.
-    Roomba(SoftwareSerial* serial = new SoftwareSerial(5,4), Baud baud = Baud57600);
+    /// \param[in] serial Pointer to the SoftwareSerial port to use to communicate with the Roomba.
+    /// \param[in] baud the baud rate to use on the serial port.
+    Roomba(SoftwareSerial* serial, Baud baud);
 
     /// Resets the Roomba.
     /// It will emit its startup message
